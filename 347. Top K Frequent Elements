@@ -1,0 +1,20 @@
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        frequency_map = Counter(nums)
+
+        
+        min_heap = []
+
+       
+        for num, freq in frequency_map.items():
+            # We use a tuple (frequency, element) in the heap to prioritize by frequency
+            heapq.heappush(min_heap, (freq, num))
+            # If the heap size exceeds k, remove the element with the lowest frequency
+            if len(min_heap) > k:
+                heapq.heappop(min_heap)
+
+        # Step 4: The remaining elements in the min-heap are the k most frequent elements
+        result = [element for freq, element in min_heap]
+
+        # Since the order doesn't matter, we can return the result in any order.
+        return result
